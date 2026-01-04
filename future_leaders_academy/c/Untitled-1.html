@@ -1,0 +1,2531 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="أكاديمية قادة المستقبل">
+    <title>أكاديمية قادة المستقبل</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ===== CSS Variables ===== */
+        :root {
+            /* Primary Colors */
+            --primary-gold: #C9A227;
+            --primary-gold-light: #E8D48A;
+            --primary-gold-dark: #9A7B1A;
+            
+            /* Country Colors */
+            --saudi-green: #006C35;
+            --saudi-green-light: #009B4D;
+            --uae-red: #CE1126;
+            --uae-green: #009739;
+            --uae-black: #000000;
+            --admin-purple: #7C3AED;
+            --accent-blue: #3B82F6;
+            
+            /* UI Colors - Light Mode */
+            --bg-primary: #F8F9FC;
+            --bg-secondary: #FFFFFF;
+            --bg-card: #FFFFFF;
+            --text-primary: #0F172A;
+            --text-secondary: #475569;
+            --text-muted: #94A3B8;
+            --border-color: #E2E8F0;
+            
+            /* Shadows */
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.04);
+            --shadow-md: 0 4px 20px rgba(0,0,0,0.08);
+            --shadow-lg: 0 12px 40px rgba(0,0,0,0.12);
+            --shadow-xl: 0 20px 60px rgba(0,0,0,0.15);
+            
+            /* Gradients */
+            --gradient-gold: linear-gradient(135deg, #C9A227 0%, #E8D48A 50%, #C9A227 100%);
+            --gradient-saudi: linear-gradient(135deg, #006C35 0%, #009B4D 100%);
+            --gradient-uae: linear-gradient(135deg, #000000 0%, #CE1126 33%, #FFFFFF 33%, #FFFFFF 66%, #009739 66%, #009739 100%);
+            --gradient-admin: linear-gradient(135deg, #7C3AED 0%, #A78BFA 100%);
+            --gradient-blue: linear-gradient(135deg, #3B82F6 0%, #60A5FA 100%);
+            
+            /* Border Radius */
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 24px;
+            --radius-full: 9999px;
+            
+            /* Transitions */
+            --transition-fast: 0.2s ease;
+            --transition-normal: 0.3s ease;
+            --transition-slow: 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            
+            /* Z-index Layers */
+            --z-dropdown: 1000;
+            --z-sticky: 1020;
+            --z-fixed: 1030;
+            --z-modal-backdrop: 1040;
+            --z-modal: 1050;
+            --z-tooltip: 1060;
+            --z-admin-panel: 1070;
+        }
+
+        /* ===== Dark Mode ===== */
+        .dark-mode {
+            --bg-primary: #0B0F1A;
+            --bg-secondary: #111827;
+            --bg-card: #1F2937;
+            --text-primary: #F8FAFC;
+            --text-secondary: #CBD5E1;
+            --text-muted: #64748B;
+            --border-color: #334155;
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.4);
+            --shadow-md: 0 4px 20px rgba(0,0,0,0.5);
+            --shadow-lg: 0 12px 40px rgba(0,0,0,0.6);
+        }
+
+        /* ===== Reset & Base Styles ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 100px;
+        }
+
+        body {
+            font-family: 'Noto Kufi Arabic', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+            line-height: 1.7;
+            transition: background-color var(--transition-normal);
+            
+        }
+
+        /* ===== Accessibility ===== */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        :focus-visible {
+            outline: 2px solid var(--primary-gold);
+            outline-offset: 3px;
+            border-radius: var(--radius-sm);
+        }
+
+        /* ===== Layout Components ===== */
+        .container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* ===== Header ===== */
+        .main-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-color);
+            padding: 0.875rem 0;
+            z-index: var(--z-fixed);
+            box-shadow: var(--shadow-sm);
+            transition: all var(--transition-normal);
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 2rem;
+        }
+
+        /* Brand Logo */
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            text-decoration: none;
+            transition: transform var(--transition-normal);
+        }
+
+        .brand-logo:hover {
+            transform: translateY(-2px);
+        }
+
+        .logo-icon {
+            width: 60px;
+            height: 60px;
+            
+            border-radius: var(--radius-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+             color: #f9f9fd;
+            flex-shrink: 0;
+        }
+
+        .logo-text {
+            text-align: right;
+        }
+
+        .logo-arabic {
+            font-size: 1.5rem;
+            font-weight: 900;
+            background: var(--gradient-gold);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.2;
+        }
+
+        .logo-english {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            line-height: 1.2;
+        }
+
+        .logo-english span {
+            color: var(--primary-gold);
+        }
+
+        /* Navigation */
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all var(--transition-normal);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem;
+            border-radius: var(--radius-sm);
+            position: relative;
+        }
+
+        .nav-link:hover,
+        .nav-link:focus {
+            color: var(--primary-gold);
+            background: rgba(201, 162, 39, 0.1);
+        }
+
+        .nav-link.active {
+            color: var(--primary-gold);
+        }
+
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            right: 50%;
+            transform: translateX(50%);
+            width: 20px;
+            height: 3px;
+            background: var(--gradient-gold);
+            border-radius: var(--radius-full);
+        }
+
+        .admin-btn {
+            background: var(--gradient-admin);
+            color: white;
+            border: none;
+            border-radius: var(--radius-md);
+            padding: 0.75rem 1.5rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all var(--transition-normal);
+            text-decoration: none;
+            font-family: inherit;
+        }
+
+        .admin-btn:hover,
+        .admin-btn:focus {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .whatsapp-btn-nav {
+            background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+            color: white;
+            border: none;
+            border-radius: var(--radius-md);
+            padding: 0.75rem 1.5rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all var(--transition-normal);
+            text-decoration: none;
+            font-family: inherit;
+        }
+
+        .whatsapp-btn-nav:hover,
+        .whatsapp-btn-nav:focus {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
+        }
+
+        /* Mobile Menu Toggle */
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: var(--radius-sm);
+        }
+
+        .mobile-menu-toggle:hover {
+            background: rgba(201, 162, 39, 0.1);
+        }
+
+        /* ===== Hero Section ===== */
+        .hero-section {
+            padding: 9rem 0 4rem;
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 30% 50%, rgba(201, 162, 39, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .hero-title {
+            font-size: 3rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            background: var(--gradient-gold);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.2;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            line-height: 1.6;
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-top: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: var(--gradient-gold);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+
+        /* ===== Services Overview ===== */
+        .services-overview {
+            padding: 4rem 0;
+            background: var(--bg-primary);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 3rem;
+            color: var(--text-primary);
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            right: 50%;
+            transform: translateX(50%);
+            width: 60px;
+            height: 4px;
+            background: var(--gradient-gold);
+            border-radius: var(--radius-full);
+        }
+
+        .countries-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        @media (max-width: 768px) {
+            .countries-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .country-card {
+            background: var(--bg-card);
+            border-radius: var(--radius-xl);
+            padding: 2.5rem;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border-color);
+            transition: all var(--transition-normal);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .country-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .country-card.saudi::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--gradient-saudi);
+        }
+
+        .country-card.uae::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--gradient-uae);
+        }
+
+        .country-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .country-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: var(--radius-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .country-icon.saudi {
+            background: var(--gradient-saudi);
+        }
+
+        .country-icon.uae {
+            background: var(--gradient-uae);
+        }
+
+        .country-title {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--text-primary);
+        }
+
+        .country-subtitle {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            margin-top: 0.25rem;
+        }
+
+        .services-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+
+        .service-item {
+            background: var(--bg-primary);
+            padding: 1rem;
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-color);
+            transition: all var(--transition-normal);
+        }
+
+        .service-item:hover {
+            border-color: var(--primary-gold);
+            background: rgba(201, 162, 39, 0.05);
+            transform: translateX(-5px);
+        }
+
+        .service-item i {
+            color: var(--primary-gold);
+            margin-left: 0.5rem;
+        }
+
+        .service-item .text-muted {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-top: 0.25rem;
+            display: block;
+        }
+
+        /* ===== Features Section ===== */
+        .features-section {
+            padding: 4rem 0;
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: var(--bg-card);
+            border-radius: var(--radius-xl);
+            padding: 2rem;
+            text-align: center;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border-color);
+            transition: all var(--transition-normal);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .feature-icon {
+            width: 70px;
+            height: 70px;
+            background: var(--gradient-gold);
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 1.8rem;
+            color: #1A1A2E;
+        }
+
+        .feature-title {
+            font-size: 1.3rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .feature-description {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* ===== Categories Navigation ===== */
+        .categories-nav {
+            background: var(--bg-secondary);
+            padding: 1rem 0;
+            position: sticky;
+            top: 76px;
+            z-index: var(--z-sticky);
+            box-shadow: var(--shadow-sm);
+            border-bottom: 1px solid var(--border-color);
+            transition: top 0.3s ease;
+        }
+
+        .categories-container {
+            display: flex;
+            gap: 0.5rem;
+            overflow-x: auto;
+            padding-bottom: 0.5rem;
+            scrollbar-width: thin;
+            scrollbar-color: var(--primary-gold) var(--border-color);
+        }
+
+        .categories-container::-webkit-scrollbar {
+            height: 6px;
+        }
+
+        .categories-container::-webkit-scrollbar-track {
+            background: var(--border-color);
+            border-radius: var(--radius-full);
+        }
+
+        .categories-container::-webkit-scrollbar-thumb {
+            background: var(--primary-gold);
+            border-radius: var(--radius-full);
+        }
+
+        .category-btn {
+            padding: 0.75rem 1.25rem;
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-full);
+            color: var(--text-secondary);
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all var(--transition-normal);
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: inherit;
+        }
+
+        .category-btn:hover,
+        .category-btn:focus,
+        .category-btn.active {
+            background: var(--gradient-gold);
+            color: #1A1A2E;
+            border-color: transparent;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        /* ===== Works Section ===== */
+        .works-section {
+            padding: 3rem 0;
+        }
+
+        /* Works Grid */
+        .works-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+            gap: 2rem;
+            opacity: 1;
+            transition: opacity var(--transition-normal);
+        }
+
+        .works-grid.loading {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        /* Work Card */
+        .work-card {
+            background: var(--bg-card);
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            transition: all var(--transition-slow);
+            animation: fadeInUp 0.6s ease both;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid var(--border-color);
+        }
+
+        .work-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary-gold-light);
+        }
+
+        .work-media {
+            height: 250px;
+            position: relative;
+            overflow: hidden;
+            background: var(--bg-primary);
+        }
+
+        .work-media img,
+        .work-media video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform var(--transition-slow);
+        }
+
+        .work-media.loading img,
+        .work-media.loading video {
+            opacity: 0;
+        }
+
+        .work-media.loading::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 40px;
+            height: 40px;
+            border: 3px solid var(--border-color);
+            border-top-color: var(--primary-gold);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        .work-card:hover .work-media img,
+        .work-card:hover .work-media video {
+            transform: scale(1.08);
+        }
+
+        .work-badge {
+            position: absolute;
+            top: 1rem;
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius-full);
+            font-size: 0.8rem;
+            font-weight: 700;
+            z-index: 2;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .work-badge.saudi {
+            right: 1rem;
+            background: rgba(0, 108, 53, 0.9);
+            color: white;
+        }
+
+        .work-badge.uae {
+            right: 1rem;
+            background: rgba(206, 17, 38, 0.9);
+            color: white;
+        }
+
+        .work-badge.featured {
+            left: 1rem;
+            background: rgba(201, 162, 39, 0.9);
+            color: #1A1A2E;
+        }
+
+        .media-type {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: var(--radius-full);
+            font-size: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+        }
+
+        .work-content {
+            padding: 1.5rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .work-category {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.4rem 0.8rem;
+            background: var(--bg-primary);
+            border-radius: var(--radius-full);
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 0.8rem;
+            align-self: flex-start;
+        }
+
+        .work-title {
+            font-size: 1.3rem;
+            font-weight: 800;
+            margin-bottom: 0.8rem;
+            color: var(--text-primary);
+            line-height: 1.4;
+        }
+
+        .work-description {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+            flex: 1;
+        }
+
+        .work-features {
+            list-style: none;
+            padding: 0;
+            margin: 1rem 0;
+        }
+
+        .work-features li {
+            padding: 0.3rem 0;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            position: relative;
+            padding-right: 1.2rem;
+        }
+
+        .work-features li::before {
+            content: '✓';
+            position: absolute;
+            right: 0;
+            color: var(--primary-gold);
+            font-weight: bold;
+        }
+
+        .work-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border-color);
+            margin-top: 1rem;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .work-date {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .work-actions {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .work-btn {
+            padding: 0.5rem 1rem;
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            transition: all var(--transition-normal);
+            cursor: pointer;
+            font-family: inherit;
+            white-space: nowrap;
+        }
+
+        .work-btn:hover,
+        .work-btn:focus {
+            background: var(--gradient-gold);
+            color: #1A1A2E;
+            border-color: transparent;
+            transform: translateY(-2px);
+        }
+
+        .whatsapp-action-btn {
+            background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+            color: white;
+            border: none;
+            border-radius: var(--radius-md);
+            padding: 0.5rem 1rem;
+            text-decoration: none;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            transition: all var(--transition-normal);
+            cursor: pointer;
+            font-family: inherit;
+            white-space: nowrap;
+        }
+
+        .whatsapp-action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
+        }
+
+        .admin-actions {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+            padding-top: 0.5rem;
+            border-top: 1px dashed var(--border-color);
+        }
+
+        .edit-btn {
+            background: var(--gradient-admin);
+            color: white;
+            border: none;
+            border-radius: var(--radius-sm);
+            padding: 0.3rem 0.8rem;
+            font-size: 0.8rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            transition: all var(--transition-normal);
+        }
+
+        .edit-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .delete-btn {
+            background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
+            color: white;
+            border: none;
+            border-radius: var(--radius-sm);
+            padding: 0.3rem 0.8rem;
+            font-size: 0.8rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            transition: all var(--transition-normal);
+        }
+
+        .delete-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-sm);
+        }
+
+        /* ===== Empty State ===== */
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            grid-column: 1 / -1;
+        }
+
+        .empty-state i {
+            font-size: 4rem;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+
+        .empty-state h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .empty-state p {
+            color: var(--text-secondary);
+            max-width: 400px;
+            margin: 0 auto 1.5rem;
+        }
+
+        /* ===== Pricing Section ===== */
+        .pricing-section {
+            padding: 4rem 0;
+            background: var(--bg-primary);
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .pricing-card {
+            background: var(--bg-card);
+            border-radius: var(--radius-xl);
+            padding: 2.5rem;
+            text-align: center;
+            box-shadow: var(--shadow-md);
+            border: 2px solid var(--border-color);
+            transition: all var(--transition-normal);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary-gold);
+        }
+
+        .pricing-card.featured {
+            border-color: var(--primary-gold);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .featured-badge {
+            position: absolute;
+            top: 1rem;
+            left: -2rem;
+            background: var(--gradient-gold);
+            color: #1A1A2E;
+            padding: 0.5rem 2rem;
+            transform: rotate(-45deg);
+            font-weight: 700;
+            font-size: 0.8rem;
+        }
+
+        .pricing-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .pricing-price {
+            font-size: 3rem;
+            font-weight: 900;
+            background: var(--gradient-gold);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin: 1.5rem 0;
+        }
+
+        .pricing-features {
+            list-style: none;
+            padding: 0;
+            margin: 2rem 0;
+            text-align: right;
+        }
+
+        .pricing-features li {
+            padding: 0.5rem 0;
+            color: var(--text-secondary);
+            position: relative;
+            padding-right: 1.5rem;
+        }
+
+        .pricing-features li::before {
+            content: '✓';
+            position: absolute;
+            right: 0;
+            color: var(--primary-gold);
+            font-weight: bold;
+        }
+
+        .pricing-features li.disabled {
+            color: var(--text-muted);
+            text-decoration: line-through;
+        }
+
+        .pricing-features li.disabled::before {
+            content: '✗';
+            color: var(--text-muted);
+        }
+
+        /* ===== Contact Section ===== */
+        .contact-section {
+            padding: 4rem 0;
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
+            height: 40%;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .contact-info {
+            text-align: right;
+        }
+
+        .contact-title {
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .contact-subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .contact-details {
+            margin-top: 2rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-color);
+            transition: all var(--transition-normal);
+        }
+
+        .contact-item:hover {
+            border-color: var(--primary-gold);
+            transform: translateX(-5px);
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--gradient-gold);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: #1A1A2E;
+            flex-shrink: 0;
+        }
+
+        .contact-text h4 {
+            font-size: 1rem;
+            margin-bottom: 0.25rem;
+            color: var(--text-primary);
+        }
+
+        .contact-text p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .contact-form {
+            background: var(--bg-card);
+            padding: 2.5rem;
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--border-color);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+          .works-section {
+            padding: 3rem 0;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: inherit;
+            font-size: 0.95rem;
+            transition: all var(--transition-normal);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-gold);
+            box-shadow: 0 0 0 3px rgba(201, 162, 39, 0.1);
+        }
+
+        .form-textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            background: var(--gradient-gold);
+            color: #1A1A2E;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: var(--radius-md);
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+            transition: all var(--transition-normal);
+            font-family: inherit;
+            font-size: 1rem;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        /* ===== Footer ===== */
+        .footer {
+            background: var(--bg-secondary);
+            padding: 3rem 0 1.5rem;
+            border-top: 1px solid var(--border-color);
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h4 {
+            font-size: 1.2rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color var(--transition-normal);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-gold);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* ===== Floating WhatsApp ===== */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 32px;
+            left: 32px;
+            z-index: var(--z-tooltip);
+        }
+
+        .whatsapp-float-btn {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.8rem;
+            box-shadow: var(--shadow-lg);
+            transition: all var(--transition-normal);
+            text-decoration: none;
+            position: relative;
+        }
+
+        .whatsapp-float-btn::before {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border-radius: 50%;
+            background: rgba(37, 211, 102, 0.3);
+            animation: pulse 2s ease-out infinite;
+        }
+
+        .whatsapp-float-btn:hover,
+        .whatsapp-float-btn:focus {
+            transform: scale(1.1);
+        }
+
+        /* ===== Animations ===== */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes spin {
+            to {
+                transform: translate(-50%, -50%) rotate(360deg);
+            }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 0.4; }
+            100% { transform: scale(1.3); opacity: 0; }
+        }
+
+        /* ===== Responsive Design ===== */
+        @media (max-width: 1200px) {
+            .works-grid {
+                grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            }
+        }
+
+        @media (max-width: 992px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .container {
+                padding: 0 1.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            /* Header */
+            .main-header {
+                padding: 0.75rem 0;
+            }
+            
+            .mobile-menu-toggle {
+                display: block;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 76px;
+                left: 0;
+                right: 0;
+                background: var(--bg-secondary);
+                flex-direction: column;
+                padding: 1rem;
+                box-shadow: var(--shadow-lg);
+                transform: translateY(-100%);
+                opacity: 0;
+                visibility: hidden;
+                transition: all var(--transition-normal);
+                z-index: var(--z-dropdown);
+            }
+            
+            .nav-links.active {
+                transform: translateY(0);
+                opacity: 1;
+                visibility: visible;
+            }
+            
+            .nav-link.active::after {
+                bottom: -5px;
+            }
+            
+            /* Hero */
+            .hero-section {
+                padding: 7rem 0 3rem;
+            }
+            
+            .hero-title {
+                font-size: 2rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+            
+            .hero-stats {
+                gap: 2rem;
+            }
+            
+            .stat-number {
+                font-size: 2rem;
+            }
+            
+            /* Categories */
+            .categories-nav {
+                top: 60px;
+            }
+            
+            /* Works Grid */
+            .works-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            /* Services */
+            .countries-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .country-card {
+                padding: 1.5rem;
+            }
+            
+            .services-list {
+                grid-template-columns: 1fr;
+            }
+            
+            /* Contact */
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            /* Floating WhatsApp */
+            .whatsapp-float {
+                bottom: 20px;
+                left: 20px;
+            }
+            
+            .whatsapp-float-btn {
+                width: 50px;
+                height: 50px;
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 1rem;
+            }
+            
+            .hero-title {
+                font-size: 1.75rem;
+            }
+            
+            .country-title {
+                font-size: 1.5rem;
+            }
+            
+            .work-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            
+            .work-item-actions {
+                align-self: flex-end;
+            }
+            
+            .pricing-card {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Skip to main content link for accessibility -->
+   
+    
+    <!-- Portfolio Section -->
+     
+    
+    <!-- Hero Section -->
+    <section class="hero-section" id="main-content">
+        <div class="container">
+            <h1 class="hero-title">خدمات تعليمية متكاملة للطلاب والمعلمين</h1>
+            <p class="hero-subtitle">
+                نقدم خدمات تعليمية وإدارية متكاملة لطلاب الجامعات في الإمارات والمعلمين والمعلمات في المملكة العربية السعودية.
+                خبرة كبيرة في مجال التعليم مع ضمان أعلى جودة وأفضل الأسعار.
+            </p>
+            
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <div class="stat-number">+500</div>
+                    <div class="stat-label">عمل منجز</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">100%</div>
+                    <div class="stat-label">رضا العملاء</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-label">دعم متواصل</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">+3</div>
+                    <div class="stat-label">سنوات خبرة</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Overview -->
+    <section class="services-overview" id="services">
+        <div class="container">
+            <h2 class="section-title">خدماتنا المتكاملة</h2>
+            
+            <div class="countries-grid">
+                <!-- UAE Services -->
+                <div class="country-card uae">
+                    <div class="country-header">
+                        <div class="country-icon uae">
+                            <i class="fas fa-building"></i>
+                        </div>
+                        <div>
+                            <h3 class="country-title">خدمات الإمارات 🇦🇪</h3>
+                            <p class="country-subtitle">خدمات أكاديمية متخصصة لطلاب الجامعات</p>
+                        </div>
+                    </div>
+                    
+                    <div class="services-list">
+                        <div class="service-item">
+                            <i class="fas fa-graduation-cap"></i>
+                            بحوث جامعية / ماستر
+                            <span class="text-muted">بفحص Turnitin وملف PDF</span>
+                        </div>
+                        <div class="service-item">
+                            <i class="fas fa-file-alt"></i>
+                            تقارير وبوربوينت
+                            <span class="text-muted">عروض احترافية مميزة</span>
+                        </div>
+                        <div class="service-item">
+                            <i class="fas fa-project-diagram"></i>
+                            بروجكتات واسايمنتات
+                            <span class="text-muted">بأعلى التقديرات</span>
+                        </div>
+                        <div class="service-item">
+                            <i class="fas fa-tasks"></i>
+                            واجبات وتلخيص
+                            <span class="text-muted">دقة وسرعة في التنفيذ</span>
+                        </div>
+                        <div class="service-item">
+                            <i class="fas fa-book"></i>
+                            كيس ستدي وبحوث تخرج
+                            <span class="text-muted">خبرة كبيرة في التخصصات</span>
+                        </div>
+                        <div class="service-item">
+                            <i class="fas fa-language"></i>
+                            ترجمة متخصصة
+                            <span class="text-muted">عربي/إنجليزي/فرنسي</span>
+                        </div>
+                        <div class="service-item">
+                            <i class="fas fa-university"></i>
+                            رسائل الماجستير والدكتوراة
+                            <span class="text-muted">منهجية علمية دقيقة</span>
+                        </div>
+                        <div class="service-item">
+                            <i class="fas fa-laptop-code"></i>
+                            حل منصات التعليم
+                            <span class="text-muted">Alef, LMS, Canvas</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Saudi Services -->
+                <div class="country-card saudi">
+                    <div class="country-header">
+                        <div class="country-icon saudi">
+                            <i class="fas fa-landmark"></i>
+                        </div>
+                        <div>
+                            <h3 class="country-title">خدمات السعوديين 🇸🇦</h3>
+                            <p class="country-subtitle">خدمات إدارية وتعليمية متكاملة</p>
+                        </div>
+                    </div>
+                    
+                    <div class="services-list">
+                        <div class="service-item">
+                            <i class="fas fa-folder"></i>
+                            ملف الأداء الوظيفي
+                            <span class="text-muted">ورقي وإلكتروني</span>
+                        </div>
+                        <div class="service-item">
+                            <i class="fas fa-paint-brush"></i>
+                            تصاميم ولوحات إعلانية
+                            <span class="text-muted">فيديوهات واحترافية</span>
+                        </div>
+                        <div class="service-item">
+                            <i class="fas fa-calendar-alt"></i>
+                            خطط أسبوعية وفصلية
+                            <span class="text-muted">منسقة وجاهزة</span>
+                        </div>
+                        <div class="service-item">
+                            <i class="fas fa-file-powerpoint"></i>
+                            عروض بوربوينت
+                            <span class="text-muted">تصاميم جذابة</span>
+                        </div>
+                        <div class="service-item">
+                            <i class="fas fa-trophy"></i>
+                            ملفات إنجاز وإنتاج معرفي
+                            <span class="text-muted">ورقي وإلكتروني</span>
+                        </div>
+                        <div class="service-item">
+                            <i class="fas fa-stethoscope"></i>
+                            خطط علاجية وإثرائية
+                            <span class="text-muted">متنوعة وشاملة</span>
+                        </div>
+                        <div class="service-item">
+                            <i class="fas fa-award"></i>
+                            شهادات وسجلات متابعة
+                            <span class="text-muted">جميع النماذج</span>
+                        </div>
+                        <div class="service-item">
+                            <i class="fas fa-users"></i>
+                            مجتمعات مهنية ومبادرات
+                            <span class="text-muted">إبداعية ومتميزة</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section">
+        <div class="container">
+            <h2 class="section-title">لماذا تختارنا؟</h2>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-medal"></i>
+                    </div>
+                    <h3 class="feature-title">جودة عالية</h3>
+                    <p class="feature-description">
+                        نضمن لك أعلى معايير الجودة والدقة في جميع الأعمال، مع مراعاة أحدث المناهج والمعايير الأكاديمية.
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3 class="feature-title">تسليم في الوقت المحدد</h3>
+                    <p class="feature-description">
+                        نلتزم بالمواعيد النهائية ونضمن تسليم العمل في الوقت المتفق عليه، مع متابعة مستمرة للتقدم.
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3 class="feature-title">فحص الاقتباس</h3>
+                    <p class="feature-description">
+                        نقدم فحص Turnitin مع كل بحث جامعي، ونسلم ملف PDF يؤكد خلو العمل من الانتحال والنسخ.
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <h3 class="feature-title">دعم متواصل 24/7</h3>
+                    <p class="feature-description">
+                        فريق دعم فني متاح على مدار الساعة للرد على استفساراتك وتقديم المساعدة الفورية عبر الواتساب.
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-money-bill-wave"></i>
+                    </div>
+                    <h3 class="feature-title">أسعار مناسبة</h3>
+                    <p class="feature-description">
+                        نقدم أسعاراً تناسب الجميع، مع عروض وتخفيضات خاصة للعملاء الدائمين والطلبات الكبيرة.
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <h3 class="feature-title">خصوصية وأمان</h3>
+                    <p class="feature-description">
+                        نحافظ على سرية معلوماتك وخصوصية أعمالك، ولا نشارك أي بيانات مع أطراف ثالثة.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Pricing Section -->
+   
+
+    <!-- Contact Section -->
+    <!-- <section class="contact-section" id="contact">
+        <div class="container">
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <h2 class="contact-title">تواصل معنا</h2>
+                    <p class="contact-subtitle">
+                        نحن هنا لمساعدتك في جميع احتياجاتك التعليمية والإدارية. 
+                        تواصل معنا عبر الواتساب للحصول على استشارة مجانية وتقديم طلبك.
+                    </p>
+                    
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fab fa-whatsapp"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h4>الواتساب للإمارات</h4>
+                                <p>+971 55 335 3672 🇦🇪</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fab fa-whatsapp"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h4>الواتساب للسعودية</h4>
+                                <p>+966 55 335 3672 🇸🇦</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h4>ساعات العمل</h4>
+                                <p>24/7 - على مدار الساعة</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-language"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h4>اللغات المتاحة</h4>
+                                <p>العربية - الإنجليزية - الفرنسية</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+               
+            </div>
+        </div>
+    </section> -->
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                
+            <div class="footer-bottom">
+                <p>© 2024 أكاديمية قادة المستقبل - Future Leaders Academy. جميع الحقوق محفوظة.</p>
+                <p style="margin-top: 0.5rem; font-size: 0.8rem;">
+                    شغل يبيض الوجه ♥️ - أسعار تناسب الكل 💐
+                </p>
+            </div>
+        </div>
+    </footer>
+
+
+
+    <script>
+  
+        const CONFIG = {
+            whatsappUAE: '971553353672',
+            whatsappKSA: '966553353672',
+            defaultMessage: 'مرحبًا، أرغب في الحصول على خدمة تعليمية',
+            localStorageKey: 'future_leaders_portfolio',
+            adminPassword: 'admin123',
+            categories: {
+                uae: [
+                    'بحوث جامعية',
+                    'عروض تقديمية', 
+                    'تقارير أكاديمية',
+                    'بروجكتات واسايمنتات',
+                    'ترجمة متخصصة',
+                    'حل منصات تعليمية'
+                ],
+                saudi: [
+                    'ملفات المعلمين',
+                    'خطط علاجية',
+                    'عروض بوربوينت',
+                    'سجلات ومتابعة',
+                    'تصاميم وإعلانات',
+                    'مبادرات ومجتمعات'
+                ]
+            }
+        };
+
+        // ===== Application State =====
+        const state = {
+            currentFilter: 'all',
+            currentCategory: 'all',
+            works: [],
+            isAdminAuthenticated: false,
+            editingWorkId: null
+        };
+
+        // ===== DOM Elements =====
+        let elements = {};
+
+        // ===== Initialize App =====
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeElements();
+            initializeApp();
+            setupEventListeners();
+            checkAuth();
+        });
+
+        function initializeElements() {
+            elements = {
+                worksGrid: document.getElementById('worksGrid'),
+                categoriesContainer: document.getElementById('categoriesContainer'),
+                contactForm: document.getElementById('contactForm')
+            };
+        }
+
+        function initializeApp() {
+            loadWorksFromStorage();
+            generateCategories();
+            renderWorks();
+            setupContactForm();
+        }
+
+        // ===== Data Management =====
+        function loadWorksFromStorage() {
+            const savedWorks = localStorage.getItem(CONFIG.localStorageKey);
+            
+            if (savedWorks) {
+                try {
+                    state.works = JSON.parse(savedWorks);
+                } catch (e) {
+                    console.error('Error loading works:', e);
+                    loadSampleWorks();
+                }
+            } else {
+                loadSampleWorks();
+            }
+        }
+
+        function loadSampleWorks() {
+            state.works = [
+                {
+                    id: 1,
+                    title: "بحث في الإدارة التعليمية المتقدمة",
+                    category: "بحوث جامعية",
+                    country: "uae",
+                    type: "image",
+                    media: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjYwMCIgdmlld0JveD0iMCAwIDgwMCA2MDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSI2MDAiIGZpbGw9IiMwMDZDMzUiIHJ4PSIyMCI8L3JlY3Q+PHJlY3QgeD0iNTAiIHk9IjUwIiB3aWR0aD0iNzAwIiBoZWlnaHQ9IjUwMCIgZmlsbD0iI0ZGRkZGRiIgcng9IjE1Ij48L3JlY3Q+PHRleHQgeD0iNDAwIiB5PSIyMDAiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIzMiIgZmlsbD0iIzAwNkMzNSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC13ZWlnaHQ9ImJvbGQiPu2Bie2BpOuhnO2BrCDsnbTsnbwg7KeE7KCV7JqpPC90ZXh0Pjx0ZXh0IHg9IjQwMCIgeT0iMjgwIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTYiIGZpbGw9IiM0NzU1NjkiIHRleHQtYW5jaG9yPSJtaWRkbGUiPuygleuhnCDshJzssqntlbQg7KCV7JqpIOyghOyeiOq4sOyalCDsmrDrj4Qg67O07IaMPC90ZXh0PjxwYXRoIGQ9Ik0yMDAgNDAwIEw2MDAgNDAwIiBzdHJva2U9IiNDOUExMjciIHN0cm9rZS13aWR0aD0iNCIgc3Ryb2tlLWRhc2hhcnJheT0iMTAgMTAiLz48L3N2Zz4=",
+                    description: "بحث أكاديمي متكامل في الإدارة التعليمية مع فحص Turnitin وضمان خلو البحث من الاقتباس.",
+                    features: [
+                        "30 صفحة بحثية متكاملة",
+                        "فحص Turnitin شامل",
+                        "مراجع علمية حديثة",
+                        "تحليل إحصائي متقدم",
+                        "توصيات عملية قابلة للتطبيق"
+                    ],
+                    date: "2024-03-15",
+                    featured: true,
+                    price: "$200"
+                },
+                {
+                    id: 2,
+                    title: "ملف الأداء الوظيفي الإلكتروني",
+                    category: "ملفات المعلمين",
+                    country: "saudi",
+                    type: "image",
+                    media: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjYwMCIgdmlld0JveD0iMCAwIDgwMCA2MDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSI2MDAiIGZpbGw9IiNDOUExMjciIHJ4PSIyMCI8L3JlY3Q+PHJlY3QgeD0iNTAiIHk9IjUwIiB3aWR0aD0iNzAwIiBoZWlnaHQ9IjUwMCIgZmlsbD0iI0ZGRkZGRiIgcng9IjE1Ij48L3JlY3Q+PHRleHQgeD0iNDAwIiB5PSIxNTAiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIzMiIgZmlsbD0iI0M5QTEyNyIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC13ZWlnaHQ9ImJvbGQiPu2Bie2BpOuhnCDslYTsmrDsi5wg7Jik7ZSM7J2EIOyEpOuhnDwvdGV4dD48dGV4dCB4PSI0MDAiIHk9IjI0MCIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjE2IiBmaWxsPSIjNDc1NTY5IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj7slYTrsoTsmrAg7ISk66GcIOyLnOyekOydtCDrs7TshozsnYQg67aB7Jqp7ZW0IOuhnO2UjOyGjDwvdGV4dD48Y2lyY2xlIGN4PSIyMDAiIGN5PSI0MDAiIHI9IjYwIiBmaWxsPSIjMDA2QzM1Ii8+PHRleHQgeD0iMjAwIiB5PSI0MTAiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIyMCIgZmlsbD0iI0ZGRkZGRiIgdGV4dC1hbmNob3I9Im1pZGRsZSI+7JWE65GQPC90ZXh0PjxjaXJjbGUgY3g9IjQwMCIgY3k9IjQwMCIgcj0iNjAiIGZpbGw9IiMwMDZDMzUiLz48dGV4dCB4PSI0MDAiIHk9IjQxMCIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjIwIiBmaWxsPSIjRkZGRkZGIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj7qsIDsp4A8L3RleHQ+PGNpcmNsZSBjeD0iNjAwIiBjeT0iNDAwIiByPSI2MCIgZmlsbD0iIzAwNkMzNSIvPjx0ZXh0IHg9IjYwMCIgeT0iNDEwIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMjAiIGZpbGw9IiNGRkZGRkYiIHRleHQtYW5jaG9yPSJtaWRkbGUiPuu2gOuLpDwvdGV4dD48L3N2Zz4=",
+                    description: "ملف أداء وظيفي متكامل للمعلمين والمعلمات، مطابق لمعايير الوزارة ومحدث حسب الأنظمة الجديدة.",
+                    features: [
+                        "تخطيط الأهداف السنوية",
+                        "سجل الإنجازات والمبادرات",
+                        "خطط التحسين المهني",
+                        "تقارير التقييم الذاتي",
+                        "وثائق الإنجازات والتدريب"
+                    ],
+                    date: "2024-03-10",
+                    featured: true,
+                    price: "$120"
+                },
+                {
+                    id: 3,
+                    title: "عرض بوربوينت لمشروع تخرج",
+                    category: "عروض تقديمية",
+                    country: "uae",
+                    type: "image",
+                    media: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjYwMCIgdmlld0JveD0iMCAwIDgwMCA2MDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSI2MDAiIGZpbGw9IiNDRTExMjYiIHJ4PSIyMCI8L3JlY3Q+PHJlY3QgeD0iNTAiIHk9IjUwIiB3aWR0aD0iNzAwIiBoZWlnaHQ9IjUwMCIgZmlsbD0iI0ZGRkZGRiIgcng9IjE1Ij48L3JlY3Q+PHRleHQgeD0iNDAwIiB5PSIxNTAiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIzMiIgZmlsbD0iI0NFMTEyNiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC13ZWlnaHQ9ImJvbGQiPuydtOydvCDqsIDsp4DsiqQg7KCV7JqpPC90ZXh0Pjx0ZXh0IHg9IjQwMCIgeT0iMjQwIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTYiIGZpbGw9IiM0NzU1NjkiIHRleHQtYW5jaG9yPSJtaWRkbGUiPuygleuhnCDqsIDsp4DsiqQg66eM65Oc7J2EIOyghOyeiOq4sOyalCDsmrDrj4Qg67O07IaMPC90ZXh0PjxjaXJjbGUgY3g9IjIwMCIgY3k9IjM1MCIgcj0iNDAiIGZpbGw9IiMwMDk3MzkiLz48Y2lyY2xlIGN4PSI0MDAiIGN5PSIzNTAiIHI9IjQwIiBmaWxsPSIjQ0UxMTI2Ii8+PGNpcmNsZSBjeD0iNjAwIiBjeT0iMzUwIiByPSI0MCIgZmlsbD0iIzAwNkMzNSIvPjx0ZXh0IHg9IjQwMCIgeT0iNTAwIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTYiIGZpbGw9IiM0NzU1NjkiIHRleHQtYW5jaG9yPSJtaWRkbGUiPuyYpO2UhOydmCDrp4zrk5zroZwg7YSw7Iqk7ZWYIOyEpOuhnDwvdGV4dD48L3N2Zz4=",
+                    description: "عرض تقديمي احترافي لمشروع التخرج مع تصميمات متحركة وعناصر تفاعلية مميزة.",
+                    features: [
+                        "25 شريحة بتصميم احترافي",
+                        "حركات وعناصر تفاعلية",
+                        "دعم الوسائط المتعددة",
+                        "توافق مع جميع الأجهزة",
+                        "تسجيل صوتي للشرح"
+                    ],
+                    date: "2024-03-05",
+                    featured: false,
+                    price: "$80"
+                },
+                {
+                    id: 4,
+                    title: "خطة علاجية لضعف التحصيل",
+                    category: "خطط علاجية",
+                    country: "saudi",
+                    type: "image",
+                    media: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjYwMCIgdmlld0JveD0iMCAwIDgwMCA2MDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSI2MDAiIGZpbGw9IiMwMDZDMzUiIHJ4PSIyMCI8L3JlY3Q+PHJlY3QgeD0iNTAiIHk9IjUwIiB3aWR0aD0iNzAwIiBoZWlnaHQ9IjUwMCIgZmlsbD0iI0ZGRkZGRiIgcng9IjE1Ij48L3JlY3Q+PHRleHQgeD0iNDAwIiB5PSIxNTAiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIzMiIgZmlsbD0iIzAwNkMzNSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC13ZWlnaHQ9ImJvbGQiPu2FjOuhnCDrp4zrk5wg7JqU7KCV7ZW0PC90ZXh0Pjx0ZXh0IHg9IjQwMCIgeT0iMjQwIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTYiIGZpbGw9IiM0NzU1NjkiIHRleHQtYW5jaG9yPSJtaWRkbGUiPuyghOyeiOq4sCDrtoHsnYAg7Jik7ZSM7J2EIOuLrOydgCDqsIDsp4Ag66eM65Oc66GcIOyEpOuhnDwvdGV4dD48cGF0aCBkPSJNMTUwIDM1MEgzNTAiIHN0cm9rZT0iI0M5QTEyNyIgc3Ryb2tlLXdpZHRoPSI4IiBzdHJva2UtbGluZWNhcD0icm91bmQiLz48cGF0aCBkPSJNNDUwIDM1MEw2NTAgMzUwIiBzdHJva2U9IiNDOUExMjciIHN0cm9rZS13aWR0aD0iOCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+PGNpcmNsZSBjeD0iMjUwIiBjeT0iNDUwIiByPSI1MCIgZmlsbD0iIzAwNkMzNSIvPjxjaXJjbGUgY3g9IjQwMCIgY3k9IjQ1MCIgcj0iNTAiIGZpbGw9IiMwMDZDMzUiLz48Y2lyY2xlIGN4PSI1NTAiIGN5PSI0NTAiIHI9IjUwIiBmaWxsPSIjMDA2QzM1Ii8+PHRleHQgeD0iMjUwIiB5PSI0NjAiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNiIgZmlsbD0iI0ZGRkZGRiIgdGV4dC1hbmNob3I9Im1pZGRsZSI+7JWE65GQPC90ZXh0Pjx0ZXh0IHg9IjQwMCIgeT0iNDYwIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTYiIGZpbGw9IiNGRkZGRkYiIHRleHQtYW5jaG9yPSJtaWRkbGUiPuyKpOuhnDwvdGV4dD48dGV4dCB4PSI1NTAiIHk9IjQ2MCIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjE2IiBmaWxsPSIjRkZGRkZGIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj7rp4zrk5w8L3RleHQ+PC9zdmc+",
+                    description: "خطة علاجية شاملة لمعالجة ضعف التحصيل الدراسي مع أنشطة تفاعلية وجداول متابعة.",
+                    features: [
+                        "تشخيص دقيق للصعوبات",
+                        "أنشطة علاجية متنوعة",
+                        "جداول متابعة شهرية",
+                        "تقارير تقدم الطلاب",
+                        "مؤشرات قياس الأداء"
+                    ],
+                    date: "2024-02-28",
+                    featured: false,
+                    price: "$60"
+                }
+            ];
+            
+            saveWorksToStorage();
+        }
+
+        function saveWorksToStorage() {
+            try {
+                localStorage.setItem(CONFIG.localStorageKey, JSON.stringify(state.works));
+                return true;
+            } catch (e) {
+                console.error('Error saving works:', e);
+                return false;
+            }
+        }
+
+        // ===== Categories Management =====
+        function generateCategories() {
+            const allCategories = ['all', ...CONFIG.categories.uae, ...CONFIG.categories.saudi];
+            const uniqueCategories = [...new Set(allCategories)];
+            
+            const icons = {
+                'all': 'fa-th',
+                'بحوث جامعية': 'fa-graduation-cap',
+                'عروض تقديمية': 'fa-desktop',
+                'تقارير أكاديمية': 'fa-file-alt',
+                'بروجكتات واسايمنتات': 'fa-project-diagram',
+                'ترجمة متخصصة': 'fa-language',
+                'حل منصات تعليمية': 'fa-laptop-code',
+                'ملفات المعلمين': 'fa-folder-open',
+                'خطط علاجية': 'fa-stethoscope',
+                'عروض بوربوينت': 'fa-file-powerpoint',
+                'سجلات ومتابعة': 'fa-clipboard-check',
+                'تصاميم وإعلانات': 'fa-paint-brush',
+                'مبادرات ومجتمعات': 'fa-users'
+            };
+            
+            elements.categoriesContainer.innerHTML = '';
+            
+            uniqueCategories.forEach(category => {
+                const btn = document.createElement('button');
+                btn.className = `category-btn ${category === 'all' ? 'active' : ''}`;
+                btn.setAttribute('data-category', category);
+                btn.innerHTML = `
+                    <i class="fas ${icons[category] || 'fa-tag'}" aria-hidden="true"></i>
+                    ${category === 'all' ? 'جميع الأعمال' : category}
+                `;
+                btn.addEventListener('click', () => filterByCategory(category));
+                elements.categoriesContainer.appendChild(btn);
+            });
+        }
+
+        // ===== Works Rendering =====
+        function renderWorks(filter = 'all', category = 'all') {
+            let filteredWorks = [...state.works];
+            
+            // Apply country filter
+            if (filter !== 'all') {
+                filteredWorks = filteredWorks.filter(work => work.country === filter);
+            }
+            
+            // Apply category filter
+            if (category !== 'all') {
+                filteredWorks = filteredWorks.filter(work => work.category === category);
+            }
+            
+            // Sort by date (newest first)
+            filteredWorks.sort((a, b) => new Date(b.date) - new Date(a.date));
+            
+            if (filteredWorks.length === 0) {
+                showEmptyState();
+                return;
+            }
+            
+            elements.worksGrid.innerHTML = '';
+            
+            filteredWorks.forEach((work, index) => {
+                const workElement = createWorkElement(work, index);
+                elements.worksGrid.appendChild(workElement);
+            });
+        }
+
+        function createWorkElement(work, index) {
+            const countryName = work.country === 'saudi' ? 'سعودي' : 'إماراتي';
+            const countryClass = work.country === 'saudi' ? 'saudi' : 'uae';
+            const mediaAlt = `${work.title} - ${work.description}`;
+            const whatsappNumber = work.country === 'saudi' ? CONFIG.whatsappKSA : CONFIG.whatsappUAE;
+            
+            const workElement = document.createElement('article');
+            workElement.className = 'work-card';
+            workElement.style.animationDelay = `${index * 0.1}s`;
+            workElement.setAttribute('data-work-id', work.id);
+            
+            workElement.innerHTML = `
+                <div class="work-media" role="button" tabindex="0" 
+                     onclick="openWorkModal('${work.type}', '${work.media}', '${mediaAlt}')"
+                     onkeypress="if(event.key === 'Enter') openWorkModal('${work.type}', '${work.media}', '${mediaAlt}')">
+                    <img src="${work.media}" alt="${mediaAlt}" loading="lazy">
+                    <span class="work-badge ${countryClass}" aria-label="بلد العمل: ${countryName}">
+                        ${countryName}
+                    </span>
+                    ${work.featured ? 
+                        '<span class="work-badge featured" aria-label="عمل مميز">مميز</span>' : 
+                        ''
+                    }
+                    <span class="media-type" aria-label="نوع الوسائط: ${work.type === 'image' ? 'صورة' : 'فيديو'}">
+                        <i class="fas fa-${work.type === 'image' ? 'image' : 'video'}" aria-hidden="true"></i>
+                        ${work.type === 'image' ? 'صورة' : 'فيديو'}
+                    </span>
+                </div>
+                <div class="work-content">
+                    <span class="work-category" aria-label="فئة العمل: ${work.category}">
+                        <i class="fas fa-tag" aria-hidden="true"></i>
+                        ${work.category}
+                    </span>
+                    <h3 class="work-title">${work.title}</h3>
+                    <p class="work-description">${work.description}</p>
+                    <ul class="work-features" aria-label="مميزات العمل">
+                        ${work.features.map(feature => `<li>${feature}</li>`).join('')}
+                    </ul>
+                    <div class="work-meta">
+                        <div class="work-date" aria-label="تاريخ العمل">
+                            <i class="far fa-calendar-alt" aria-hidden="true"></i>
+                            ${formatDate(work.date)}
+                            ${work.price ? `<span style="margin-right: 1rem; color: var(--primary-gold); font-weight: 700;">${work.price}</span>` : ''}
+                        </div>
+                        <div class="work-actions">
+                            <button class="work-btn" 
+                                    onclick="openWorkModal('${work.type}', '${work.media}', '${mediaAlt}')"
+                                    aria-label="عرض ${work.type === 'image' ? 'الصورة' : 'الفيديو'}">
+                                <i class="fas fa-${work.type === 'image' ? 'expand' : 'play'}" aria-hidden="true"></i>
+                                ${work.type === 'image' ? 'عرض' : 'تشغيل'}
+                            </button>
+                            <a href="https://wa.me/${whatsappNumber}?text=أريد%20عمل%20مشابه%20لـ%20${encodeURIComponent(work.title)}" 
+                               class="whatsapp-action-btn" 
+                               target="_blank"
+                               rel="noopener noreferrer"
+                               aria-label="طلب عمل مشابه عبر واتساب">
+                                <i class="fab fa-whatsapp"></i>
+                                اطلب مشابه
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            return workElement;
+        }
+
+        function showEmptyState() {
+            elements.worksGrid.innerHTML = `
+                <div class="empty-state">
+                    <i class="fas fa-box-open" aria-hidden="true"></i>
+                    <h3>لا توجد أعمال في هذه الفئة</h3>
+                    <p>جرب اختيار فئة أخرى أو تواصل معنا لعرض أعمال مشابهة</p>
+                    <a href="#contact" class="whatsapp-action-btn" style="margin-top: 1rem;">
+                        <i class="fas fa-phone-alt"></i>
+                        تواصل معنا
+                    </a>
+                </div>
+            `;
+        }
+
+        // ===== Filter Functions =====
+        function filterByCategory(category) {
+            state.currentCategory = category;
+            updateActiveCategoryButton(category);
+            renderWorks(state.currentFilter, category);
+        }
+
+        function filterByCountry(country) {
+            state.currentFilter = country;
+            updateActiveNavLink(country);
+            renderWorks(country, state.currentCategory);
+        }
+
+        // ===== UI Update Functions =====
+        function updateActiveCategoryButton(category) {
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelector(`.category-btn[data-category="${category}"]`)?.classList.add('active');
+        }
+
+        function updateActiveNavLink(filter) {
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+        }
+
+        // ===== Modal Functions =====
+        function openWorkModal(type, src, alt = '') {
+            // Create modal dynamically
+            const modal = document.createElement('div');
+            modal.className = 'media-modal active';
+            modal.style.cssText = `
+                position: fixed;
+                inset: 0;
+                background: rgba(0,0,0,0.9);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 1050;
+                padding: 1rem;
+            `;
+            
+            modal.innerHTML = `
+                <div class="modal-content" style="max-width: 90vw; max-height: 90vh; position: relative;">
+                    <button class="close-modal" onclick="this.closest('.media-modal').remove()" 
+                            style="position: absolute; top: 1rem; left: 1rem; background: rgba(0,0,0,0.7); color: white; border: none; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 1.2rem; transition: all 0.3s ease; z-index: 1;">
+                        <i class="fas fa-times"></i>
+                    </button>
+                    ${type === 'image' ? 
+                        `<img src="${src}" alt="${alt}" style="width: 100%; height: 100%; object-fit: contain; border-radius: 12px;">` : 
+                        `<video src="${src}" controls style="width: 100%; height: 100%; object-fit: contain; border-radius: 12px;"></video>`
+                    }
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
+            document.body.style.overflow = 'hidden';
+            
+            // Close modal on ESC key
+            const closeModal = (e) => {
+                if (e.key === 'Escape') {
+                    modal.remove();
+                    document.body.style.overflow = '';
+                    document.removeEventListener('keydown', closeModal);
+                }
+            };
+            
+            document.addEventListener('keydown', closeModal);
+            
+            // Close modal on outside click
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.remove();
+                    document.body.style.overflow = '';
+                    document.removeEventListener('keydown', closeModal);
+                }
+            });
+        }
+
+        // ===== Contact Form =====
+        function setupContactForm() {
+            elements.contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const name = document.getElementById('name').value;
+                const phone = document.getElementById('phone').value;
+                const service = document.getElementById('service').value;
+                const message = document.getElementById('message').value;
+                
+                const whatsappMessage = `
+الاسم: ${name}
+رقم الهاتف: ${phone}
+الخدمة المطلوبة: ${service}
+
+تفاصيل الطلب:
+${message}
+
+أتطلع لردكم، شكراً!
+                `.trim();
+                
+                const whatsappUrl = `https://wa.me/${CONFIG.whatsappUAE}?text=${encodeURIComponent(whatsappMessage)}`;
+                window.open(whatsappUrl, '_blank');
+                
+                // Reset form
+                elements.contactForm.reset();
+                
+                // Show success message
+                alert('سيتم فتح الواتساب لإرسال رسالتك. شكراً لتواصلك معنا!');
+            });
+        }
+
+        // ===== Admin Panel Functions =====
+        function openAdminPanel() {
+            if (!state.isAdminAuthenticated) {
+                authenticateAdmin();
+                return;
+            }
+            
+            // Create admin panel
+            const adminOverlay = document.createElement('div');
+            adminOverlay.className = 'admin-panel-overlay active';
+            adminOverlay.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(0,0,0,0.8);
+                backdrop-filter: blur(5px);
+                z-index: 1070;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 1rem;
+            `;
+            
+            adminOverlay.innerHTML = `
+                <div class="admin-panel" style="background: var(--bg-secondary); border-radius: 24px; width: 100%; max-width: 900px; max-height: 90vh; overflow: hidden; box-shadow: var(--shadow-xl);">
+                    <div class="admin-header" style="padding: 1.5rem; background: var(--gradient-admin); color: white; display: flex; justify-content: space-between; align-items: center;">
+                        <h2 style="font-size: 1.5rem; font-weight: 800; display: flex; align-items: center; gap: 0.5rem;">
+                            <i class="fas fa-cog"></i>
+                            لوحة التحكم - إدارة الأعمال
+                        </h2>
+                        <button class="close-admin" onclick="this.closest('.admin-panel-overlay').remove()" 
+                                style="background: rgba(255,255,255,0.2); border: none; color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 1.2rem; transition: all 0.3s ease;">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    
+                    <div style="padding: 2rem; max-height: 60vh; overflow-y: auto;">
+                        <h3 style="margin-bottom: 1.5rem; color: var(--text-primary);">إدارة الأعمال المعروضة</h3>
+                        
+                        <div id="adminWorksList">
+                            ${generateAdminWorksList()}
+                        </div>
+                        
+                        <div style="margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--border-color);">
+                            <button onclick="addNewWork()" 
+                                    style="background: var(--gradient-admin); color: white; border: none; padding: 0.875rem 2rem; border-radius: var(--radius-md); font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 0.5rem; transition: all 0.3s ease;">
+                                <i class="fas fa-plus"></i>
+                                إضافة عمل جديد
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(adminOverlay);
+            document.body.style.overflow = 'hidden';
+            
+            // Close on ESC
+            const closeAdmin = (e) => {
+                if (e.key === 'Escape') {
+                    adminOverlay.remove();
+                    document.body.style.overflow = '';
+                    document.removeEventListener('keydown', closeAdmin);
+                }
+            };
+            
+            document.addEventListener('keydown', closeAdmin);
+            
+            // Close on outside click
+            adminOverlay.addEventListener('click', (e) => {
+                if (e.target === adminOverlay) {
+                    adminOverlay.remove();
+                    document.body.style.overflow = '';
+                    document.removeEventListener('keydown', closeAdmin);
+                }
+            });
+        }
+
+        function generateAdminWorksList() {
+            if (state.works.length === 0) {
+                return '<p style="color: var(--text-secondary); text-align: center; padding: 2rem;">لا توجد أعمال مسجلة</p>';
+            }
+            
+            let html = '<div style="display: flex; flex-direction: column; gap: 1rem;">';
+            
+            state.works.forEach(work => {
+                const countryName = work.country === 'saudi' ? 'سعودي' : 'إماراتي';
+                const countryColor = work.country === 'saudi' ? '#006C35' : '#CE1126';
+                
+                html += `
+                    <div style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; padding: 1rem; display: flex; justify-content: space-between; align-items: center; transition: all 0.3s ease;">
+                        <div>
+                            <h4 style="font-size: 1rem; margin-bottom: 0.25rem;">${work.title}</h4>
+                            <div style="display: flex; gap: 1rem; font-size: 0.85rem; color: var(--text-muted);">
+                                <span><i class="fas fa-tag"></i> ${work.category}</span>
+                                <span style="color: ${countryColor};"><i class="fas fa-${work.country === 'saudi' ? 'landmark' : 'building'}"></i> ${countryName}</span>
+                                <span><i class="far fa-calendar-alt"></i> ${formatDate(work.date)}</span>
+                                ${work.featured ? '<span><i class="fas fa-star" style="color: #C9A227;"></i> مميز</span>' : ''}
+                            </div>
+                        </div>
+                        <div style="display: flex; gap: 0.5rem;">
+                            <button onclick="editWork(${work.id})" 
+                                    style="background: var(--gradient-admin); color: white; border: none; padding: 0.3rem 0.8rem; border-radius: 8px; font-size: 0.8rem; cursor: pointer; display: flex; align-items: center; gap: 0.3rem;">
+                                <i class="fas fa-edit"></i>
+                                تعديل
+                            </button>
+                            <button onclick="deleteWork(${work.id})" 
+                                    style="background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%); color: white; border: none; padding: 0.3rem 0.8rem; border-radius: 8px; font-size: 0.8rem; cursor: pointer; display: flex; align-items: center; gap: 0.3rem;">
+                                <i class="fas fa-trash"></i>
+                                حذف
+                            </button>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            html += '</div>';
+            return html;
+        }
+
+        function addNewWork() {
+            const formHtml = `
+                <div style="background: var(--bg-card); padding: 2rem; border-radius: 16px; margin-top: 1rem;">
+                    <h4 style="margin-bottom: 1.5rem; color: var(--text-primary);">إضافة عمل جديد</h4>
+                    <form onsubmit="saveNewWork(event)" id="newWorkForm">
+                        <div style="margin-bottom: 1rem;">
+                            <label style="display: block; margin-bottom: 0.5rem; color: var(--text-primary); font-weight: 600;">عنوان العمل</label>
+                            <input type="text" required style="width: 100%; padding: 0.875rem 1rem; border: 1px solid var(--border-color); border-radius: 8px; background: var(--bg-primary); color: var(--text-primary); font-family: inherit;">
+                        </div>
+                        
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+                            <div>
+                                <label style="display: block; margin-bottom: 0.5rem; color: var(--text-primary); font-weight: 600;">البلد</label>
+                                <select required style="width: 100%; padding: 0.875rem 1rem; border: 1px solid var(--border-color); border-radius: 8px; background: var(--bg-primary); color: var(--text-primary); font-family: inherit;">
+                                    <option value="">اختر البلد</option>
+                                    <option value="saudi">السعودية</option>
+                                    <option value="uae">الإمارات</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label style="display: block; margin-bottom: 0.5rem; color: var(--text-primary); font-weight: 600;">الفئة</label>
+                                <select required style="width: 100%; padding: 0.875rem 1rem; border: 1px solid var(--border-color); border-radius: 8px; background: var(--bg-primary); color: var(--text-primary); font-family: inherit;">
+                                    <option value="">اختر الفئة</option>
+                                    ${generateCategoryOptions()}
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div style="margin-bottom: 1rem;">
+                            <label style="display: block; margin-bottom: 0.5rem; color: var(--text-primary); font-weight: 600;">الوصف</label>
+                            <textarea required rows="3" style="width: 100%; padding: 0.875rem 1rem; border: 1px solid var(--border-color); border-radius: 8px; background: var(--bg-primary); color: var(--text-primary); font-family: inherit; resize: vertical;"></textarea>
+                        </div>
+                        
+                        <div style="display: flex; gap: 1rem; justify-content: flex-end; margin-top: 2rem;">
+                            <button type="button" onclick="this.closest('form').parentElement.remove()" 
+                                    style="background: var(--bg-primary); color: var(--text-secondary); border: 1px solid var(--border-color); padding: 0.875rem 2rem; border-radius: 8px; font-weight: 700; cursor: pointer;">
+                                إلغاء
+                            </button>
+                            <button type="submit" 
+                                    style="background: var(--gradient-admin); color: white; border: none; padding: 0.875rem 2rem; border-radius: 8px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 0.5rem;">
+                                <i class="fas fa-save"></i>
+                                حفظ
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            `;
+            
+            document.getElementById('adminWorksList').insertAdjacentHTML('beforeend', formHtml);
+        }
+
+        function generateCategoryOptions() {
+            let options = '';
+            const allCategories = [...CONFIG.categories.uae, ...CONFIG.categories.saudi];
+            const uniqueCategories = [...new Set(allCategories)];
+            
+            uniqueCategories.forEach(category => {
+                options += `<option value="${category}">${category}</option>`;
+            });
+            
+            return options;
+        }
+
+        function saveNewWork(event) {
+            event.preventDefault();
+            
+            const form = event.target;
+            const formData = new FormData(form);
+            
+            const newWork = {
+                id: Date.now(),
+                title: formData.get('title') || form.querySelector('input').value,
+                category: formData.get('category') || form.querySelector('select:nth-of-type(2)').value,
+                country: formData.get('country') || form.querySelector('select:nth-of-type(1)').value,
+                type: 'image',
+                media: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjYwMCIgdmlld0JveD0iMCAwIDgwMCA2MDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSI2MDAiIGZpbGw9IiNGNkY3RjkiIHJ4PSIyMCIvPjx0ZXh0IHg9IjQwMCIgeT0iMzAwIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMjgiIGZpbGw9IiM0NzU1NjkiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtd2VpZ2h0PSJib2xkIj5OZXcgV29yazwvdGV4dD48L3N2Zz4=",
+                description: formData.get('description') || form.querySelector('textarea').value,
+                features: ["جودة عالية", "تسليم في الوقت المحدد", "دعم فني مستمر"],
+                date: new Date().toISOString().split('T')[0],
+                featured: false,
+                price: "$100"
+            };
+            
+            state.works.unshift(newWork);
+            saveWorksToStorage();
+            
+            // Update UI
+            renderWorks(state.currentFilter, state.currentCategory);
+            
+            // Close form and refresh admin list
+            form.parentElement.remove();
+            document.querySelector('.admin-panel-overlay').remove();
+            openAdminPanel();
+            
+            alert('تم إضافة العمل بنجاح!');
+        }
+
+        function editWork(workId) {
+            alert('ميزة التعديل قيد التطوير. سيتم تفعيلها قريباً.');
+        }
+
+        function deleteWork(workId) {
+            if (confirm('هل أنت متأكد من حذف هذا العمل؟')) {
+                state.works = state.works.filter(work => work.id !== workId);
+                saveWorksToStorage();
+                renderWorks(state.currentFilter, state.currentCategory);
+                document.querySelector('.admin-panel-overlay').remove();
+                openAdminPanel();
+                alert('تم حذف العمل بنجاح!');
+            }
+        }
+
+        function authenticateAdmin() {
+            const password = prompt('أدخل كلمة المرور للوصول إلى لوحة التحكم:');
+            
+            if (password === CONFIG.adminPassword) {
+                state.isAdminAuthenticated = true;
+                openAdminPanel();
+            } else if (password) {
+                alert('كلمة المرور غير صحيحة');
+            }
+        }
+
+        function checkAuth() {
+            // Check session storage for admin auth
+            const auth = sessionStorage.getItem('admin_auth');
+            if (auth === CONFIG.adminPassword) {
+                state.isAdminAuthenticated = true;
+            }
+        }
+
+        // ===== Utility Functions =====
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            return date.toLocaleDateString('ar-SA', options);
+        }
+
+        // ===== Event Listeners Setup =====
+        function setupEventListeners() {
+            // Smooth scroll for navigation links
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    
+                    // Update active nav link
+                    document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Scroll to section
+                    document.getElementById(targetId).scrollIntoView({ 
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    
+                    // Close mobile menu if open
+                    if (window.innerWidth <= 768) {
+                        document.querySelector('.nav-links').classList.remove('active');
+                        document.querySelector('.mobile-menu-toggle').setAttribute('aria-expanded', 'false');
+                        document.querySelector('.mobile-menu-toggle').innerHTML = '<i class="fas fa-bars"></i>';
+                    }
+                });
+            });
+            
+            // Mobile menu toggle
+            document.querySelector('.mobile-menu-toggle').addEventListener('click', function() {
+                const navLinks = document.querySelector('.nav-links');
+                const isExpanded = this.getAttribute('aria-expanded') === 'true';
+                
+                navLinks.classList.toggle('active');
+                this.setAttribute('aria-expanded', !isExpanded);
+                this.innerHTML = isExpanded ? 
+                    '<i class="fas fa-bars"></i>' : 
+                    '<i class="fas fa-times"></i>';
+            });
+            
+            // Close mobile menu when clicking outside
+            document.addEventListener('click', function(e) {
+                const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+                const navLinks = document.querySelector('.nav-links');
+                
+                if (window.innerWidth <= 768 && 
+                    !navLinks.contains(e.target) && 
+                    !mobileMenuToggle.contains(e.target) &&
+                    navLinks.classList.contains('active')) {
+                    
+                    navLinks.classList.remove('active');
+                    mobileMenuToggle.setAttribute('aria-expanded', 'false');
+                    mobileMenuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+                }
+            });
+        }
+
+        // Make functions available globally
+        window.openWorkModal = openWorkModal;
+        window.openAdminPanel = openAdminPanel;
+        window.addNewWork = addNewWork;
+        window.saveNewWork = saveNewWork;
+        window.editWork = editWork;
+        window.deleteWork = deleteWork;
+        window.filterByCategory = filterByCategory;
+    </script>
+</body>
+</html>
